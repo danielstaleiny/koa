@@ -13,6 +13,18 @@ app.use(async (ctx, next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}`);
 });
 
+// **** router docs ****
+
+//   .get|put|post|patch|delete|del ⇒ Router
+//   .routes ⇒ function
+//   .use([path], middleware) ⇒ Router
+//   .prefix(prefix) ⇒ Router
+//   .allowedMethods([options]) ⇒ function
+//   .redirect(source, destination, code) ⇒ Router
+//   .route(name) ⇒ Layer | false
+//   .url(name, params [, options]) ⇒ String | Error
+//   .param(param, middleware) ⇒ Router
+
 router.post("/", jsonParser, ctx => {
   ctx.response.ok(ctx.request.body);
 });
