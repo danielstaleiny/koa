@@ -1,12 +1,13 @@
 const Koa = require("koa");
 const Router = require("koa-router");
-const app = new Koa();
+const server = new Koa();
 const router = new Router();
+const helmet = require("koa-helmet");
+const errorHandler = require("./error-handler");
 
 const jsonParser = require("./co-body");
-const responseHandler = require("./response-handler");
 
-app.use(async (ctx, next) => {
+server.use(async (ctx, next) => {
   const start = Date.now();
   await next();
   const ms = Date.now() - start;
@@ -25,12 +26,17 @@ app.use(async (ctx, next) => {
 //   .url(name, params [, options]) ⇒ String | Error
 //   .param(param, middleware) ⇒ Router
 
-router.post("/", jsonParser, ctx => {
-  ctx.response.ok(ctx.request.body);
-});
+router
+  .get("/", ctx => {
+    ctx.throw(400, "waaa");
+  })
+  .post("/", jsonParser, ctx => {
+    ctx.throw(500, ctx.request.body.name);
+  });
 
-app.use(responseHandler());
-app.use(router.routes());
-app.use(router.allowedMethods());
+server.use(helmet());
+server.use(errorHandler);
+server.use(router.routes());
+server.use(router.allowedMethods({ throw: true }));
 
-app.listen(3000);
+server.listen(3000);
