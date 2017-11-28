@@ -1,0 +1,24 @@
+{
+  "name": "koa-test-setup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielstaleiny/koa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielstaleiny/koa/issues"
+  },
+  "homepage": "https://github.com/danielstaleiny/koa#readme",
+  "dependencies": {
+    "co-body": "^5.1.1",
+    "koa": "^2.4.1",
+    "koa-router": "^7.3.0"
+  }
+}

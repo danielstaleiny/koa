@@ -1,0 +1,8 @@
+#localhost
+:http = http
+:host = 127.0.0.1:3000
+
+#test connection
+POST :http://:host/
+Content-Type: application/json
+{"name":"daniel"}
