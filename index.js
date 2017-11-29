@@ -7,6 +7,7 @@ const errorHandler = require("./error-handler");
 
 const jsonParser = require("./co-body");
 
+const port = process.env.PORT || 3000;
 // **** router docs ****
 
 //   .get|put|post|patch|delete|del ⇒ Router
@@ -25,7 +26,8 @@ router
   })
   .post("/", jsonParser, ctx => {
     ctx.throw(500, ctx.request.body.name);
-  });
+  })
+  .all("*", ctx => ctx.throw(404));
 
 if (process.env.NODE_ENV === "development") {
   const logger = require("koa-logger");
@@ -37,4 +39,5 @@ server.use(errorHandler);
 server.use(router.routes());
 server.use(router.allowedMethods({ throw: true }));
 
-server.listen(3000);
+server.listen(port);
+console.log(`Server listening on port ${port}`);
