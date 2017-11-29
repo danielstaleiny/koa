@@ -7,13 +7,6 @@ const errorHandler = require("./error-handler");
 
 const jsonParser = require("./co-body");
 
-server.use(async (ctx, next) => {
-  const start = Date.now();
-  await next();
-  const ms = Date.now() - start;
-  console.log(`${ctx.method} ${ctx.url} - ${ms}`);
-});
-
 // **** router docs ****
 
 //   .get|put|post|patch|delete|del ⇒ Router
@@ -33,6 +26,11 @@ router
   .post("/", jsonParser, ctx => {
     ctx.throw(500, ctx.request.body.name);
   });
+
+if (process.env.NODE_ENV === "development") {
+  const logger = require("koa-logger");
+  server.use(logger());
+}
 
 server.use(helmet());
 server.use(errorHandler);
