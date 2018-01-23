@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`root route 1`] = `
+Object {
+  "id": "5",
+  "text": "ni8ceee",
+}
+`;
