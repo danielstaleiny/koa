@@ -18,6 +18,11 @@ userSchema.method("toJSON", function() {
     };
 });
 
+userSchema.pre("save", function(next) {
+    this.increment();
+    next();
+});
+
 var User = mongoose.model("User", userSchema);
 
 //example

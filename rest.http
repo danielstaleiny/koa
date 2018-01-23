@@ -21,6 +21,42 @@ Content-Type: application/json
 
 
 
+# post user
+POST :http://:host/users
+Content-Type: application/json
+{"text": "daniel"}
+
+
+# post user
+POST :http://:host/users
+Content-Type: application/json
+{"text": "test5"}
+
+
+#put user
+:user = 8b9b5b8a-d14d-42d9-b79a-46ebcefcacdb
+PUT :http://:host/users/:user
+Content-Type: application/json
+{"text": "test4"}
+
+
+
+
+#Patch user
+PATCH :http://:host/users/:user
+Content-Type: application/json
+{"text": "test6"}
+
+
+#REMOVE USER
+:deleteUser = 79bc422a-69ff-4ffb-8570-c73aad763612
+DELETE :http://:host/users/:deleteUser
+Content-Type: application/json
+{}
+
+
+
+
 
 #get user by id
 GET :http://:host/users/5
@@ -28,7 +64,4 @@ Content-Type: application/json
 {}
 
 
-# post user
-POST :http://:host/users
-Content-Type: application/json
-{"text": "daniel"}
+
