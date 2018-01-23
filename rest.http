@@ -22,7 +22,13 @@ Content-Type: application/json
 
 
 
-#test connection
+#get user by id
 GET :http://:host/users/5
 Content-Type: application/json
 {}
+
+
+# post user
+POST :http://:host/users
+Content-Type: application/json
+{"text": "daniel"}
