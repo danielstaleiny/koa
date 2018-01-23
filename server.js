@@ -61,13 +61,15 @@ if (process.env.NODE_ENV === "development") {
     server.use(logger());
 }
 
+const databaseName = process.env.NODE_ENV === "test" ? "koa-test" : "koa";
+
 server.use(
     mongoose({
         user: "",
         pass: "",
         host: "127.0.0.1",
         port: "27017",
-        database: "koa"
+        database: databaseName
     })
 );
 
