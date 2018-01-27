@@ -52,11 +52,13 @@ middleware.open = (db, options) => {
 
     process.on("SIGINT", function() {
         db.close(function() {
-            process.exit(0);
+            process.exit(1);
         });
     });
     db.on("error", err => {
         db.close();
+        console.error(err);
+        process.exit(1);
     });
 
     if (options.events) {
