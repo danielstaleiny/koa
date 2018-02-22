@@ -46,10 +46,6 @@ middleware.open = (db, options) => {
             ? "/" + database
             : ""}`;
 
-    db.once("open", function() {
-        console.log("Connection with MongoDB established");
-    });
-
     process.on("SIGINT", function() {
         db.close(function() {
             process.exit(1);

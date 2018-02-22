@@ -5,7 +5,6 @@ const app = require("./server");
 const User = require("./user");
 
 beforeAll(async () => {
-    console.log("index beforeall");
     // await User.remove({}).exec();
 });
 test("root route", async () => {
