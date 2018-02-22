@@ -1,8 +1,8 @@
-const mongoose = require("./mongoose");
+const mongoose = require("../../lib/db/mongoose");
 const request = require("supertest");
-const app = require("./server");
+const app = require("../server");
 
-const User = require("./user");
+const User = require("../model/user");
 
 // beforeAll(async () => {
 //     console.log("Prepare objects");

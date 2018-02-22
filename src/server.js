@@ -2,14 +2,14 @@ const Koa = require("koa");
 const Router = require("koa-router");
 const server = new Koa();
 const router = new Router();
-const mongoose = require("./mongoose");
+const mongoose = require("../lib/db/mongoose");
 
 const helmet = require("koa-helmet");
-const errorHandler = require("./error-handler");
+const errorHandler = require("./middleware/error-handler");
 
-const jsonParser = require("./co-body");
+const jsonParser = require("./middleware/co-body");
 
-const User = require("./user.js");
+const User = require("./model/user.js");
 
 // **** router docs ****
 
@@ -40,7 +40,7 @@ const toUpperCaseFirst = str => `${str.charAt().toUpperCase()}${str.substr(1)}`;
 // and set it to model value on ctx
 const parseParam = searchBy => model => async (value, ctx, next) => {
     // take schema model
-    const Model = require(`./${model}`);
+    const Model = require(`./model/${model}`);
     var obj = {};
     // specify what to search by
     // example: {id: value}
@@ -78,7 +78,7 @@ const pipe = (...fns) => {
 
 // make sure model is lowercase
 const injectModel = model => (ctx, next) => {
-    ctx[toUpperCaseFirst(model)] = require(`./${model}`);
+    ctx[toUpperCaseFirst(model)] = require(`./model/${model}`);
     return next();
 };
 
@@ -90,6 +90,7 @@ const save = model => async ctx => {
         const savedItem = await item.save();
         ctx.status = 201;
         ctx.body = savedItem;
+        console.log(ctx.status);
     } catch (e) {
         return ctx.throw(500, e);
     }
@@ -168,20 +169,24 @@ router
     });
 
 // use pino for production and koa logger for development
-if (process.env.NODE_ENV === "development") {
-    const logger = require("koa-logger");
-    server.use(logger());
-}
+const logger =
+    process.env.NODE_ENV === "development"
+        ? require("koa-logger")
+        : require("koa-pino-logger");
 
-const databaseName = process.env.NODE_ENV === "test" ? "koa-test" : "koa";
+server.use(logger());
 
+// use DB as database and for testing use DB-test
 server.use(
     mongoose({
         user: "",
         pass: "",
         host: "127.0.0.1",
         port: "27017",
-        database: databaseName
+        database:
+            process.env.NODE_ENV === "test"
+                ? `${process.env.DB}-test`
+                : process.env.DB
     })
 );
 

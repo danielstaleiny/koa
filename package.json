@@ -22,18 +22,18 @@
   "dependencies": {
     "co-body": "^5.1.1",
     "dotenv": "^5.0.0",
-    "emailjs": "^1.0.12",
-    "koa": "^2.4.1",
+    "koa": "^2.5.0",
     "koa-helmet": "^3.3.0",
-    "koa-router": "^7.3.0",
+    "koa-pino-logger": "^2.1.1",
+    "koa-router": "^7.4.0",
     "mongoose": "^5.0.6",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
     "jest": "^21.2.1",
     "koa-logger": "^3.1.0",
-    "nodemon": "^1.14.11",
-    "snyk": "^1.52.0",
+    "nodemon": "^1.15.1",
+    "snyk": "^1.69.9",
     "supertest": "^3.0.0"
   },
   "prettier": {
