@@ -78,14 +78,14 @@ const pipe = (...fns) => {
 
 // make sure model is lowercase
 const injectModel = model => (ctx, next) => {
-    ctx[model.toUpperCaseFirst()] = require(`./${model}`);
+    ctx[toUpperCaseFirst(model)] = require(`./${model}`);
     return next();
 };
 
 // make sure model is lowercase
 const save = model => async ctx => {
     // create user with body
-    const item = new ctx[(model.toUpperCaseFirst())](ctx.request.body);
+    const item = new ctx[(toUpperCaseFirst(model))](ctx.request.body);
     try {
         const savedItem = await item.save();
         ctx.status = 201;

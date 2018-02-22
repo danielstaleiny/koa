@@ -3,6 +3,13 @@
 exports[`root route 1`] = `
 Object {
   "id": "5",
-  "text": "ni8ceee",
+  "text": "anon",
+}
+`;
+
+exports[`root route 2`] = `
+Object {
+  "id": "5",
+  "text": "anon",
 }
 `;
