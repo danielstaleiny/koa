@@ -1,4 +1,4 @@
-const capitalize = require('./capitalize')
+const capitalize = require('../utils/capitalize')
 
 // Example of use
 // need ctx.User
@@ -8,9 +8,13 @@ const capitalize = require('./capitalize')
 // Requirements:
 // require you to have models under src/model/
 // make sure model is lowercase
-const injectModel = model => (ctx, next) => {
-    ctx[capitalize(model)] = require(`../model/${model}`)
-    return next()
+const injectModel = model => async (ctx, next) => {
+    try {
+        ctx[capitalize(model)] = require(`../model/${model}`)
+        await next()
+    } catch (e) {
+        throw e
+    }
 }
 
 module.exports = injectModel

@@ -16,8 +16,8 @@ module.exports = async (ctx, next) => {
             strict: true,
             fallback: true
         })
-        return next()
-    } catch (err) {
-        return next(err)
+        await next()
+    } catch (e) {
+        throw e
     }
 }

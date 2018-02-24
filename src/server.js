@@ -3,6 +3,7 @@ const server = new Koa()
 const helmet = require('koa-helmet')
 const errorHandler = require('./middleware/error-handler')
 const mongoose = require('../lib/db/mongoose')
+const Boom = require('boom')
 
 // Routes
 const indexRouter = require('./api/index')
@@ -30,12 +31,18 @@ server.use(
     })
 )
 
+const allowMth = {
+    throw: true,
+    notImplemented: () => Boom.notImplemented(),
+    methodNotAllowed: () => Boom.methodNotAllowed()
+}
+
 server.use(helmet())
 server.use(errorHandler)
 // Routes
 server.use(indexRouter.routes())
-server.use(indexRouter.allowedMethods({ throw: true }))
+server.use(indexRouter.allowedMethods(allowMth))
 server.use(userRouter.routes())
-server.use(userRouter.allowedMethods({ throw: true }))
+server.use(userRouter.allowedMethods(allowMth))
 
 module.exports = server

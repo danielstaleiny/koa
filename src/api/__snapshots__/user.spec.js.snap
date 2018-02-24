@@ -1,6 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`POST 1`] = `
+exports[`/users /:user GET by id 1`] = `
+Object {
+  "text": "test",
+}
+`;
+
+exports[`/users POST 1`] = `
 Object {
   "text": "anon",
 }

@@ -1,11 +1,12 @@
 const Router = require('koa-router')
 const router = new Router()
-const parseJSON = require('../middleware/co-body')
 const capitalize = require('../utils/capitalize')
-const inject = require('../utils/inject-model')
+// Middleware
+const parseJSON = require('../middleware/co-body')
+const inject = require('../middleware/inject-model')
+const parse = require('../middleware/parse-param')
+// Controller
 const { get, save, put, patch, remove } = require('../controller/index')
-//parse param
-const parse = require('../utils/parse-param')
 
 router.get('/ping', ctx => {
     ctx.status = 200

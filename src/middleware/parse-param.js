@@ -1,4 +1,5 @@
-const capitalize = require('./capitalize')
+const capitalize = require('../utils/capitalize')
+const Boom = require('boom')
 // user is -> /:user -> has to match params in path
 // id is your local variable you can call it whatever
 // router.param('user', (id, ctx, next))
@@ -10,17 +11,20 @@ const capitalize = require('./capitalize')
 // and set it to model value on ctx
 
 const parseParam = model => async (value, ctx, next) => {
+    if (!value || value == 'undefined')
+        throw Boom.badRequest(`${value} is invalid param`)
     // take schema model
     const Model = require(`../model/${model}`)
+    let item
     try {
-        let item = await Model.findOne({})
-        // make sure to return 404 if none was found
-        if (!item) return ctx.throw(404, `${capitalize(model)} not found`)
-        ctx[model] = item
-        return next()
+        item = await Model.findOne({ id: value }).exec()
     } catch (e) {
-        return ctx.throw(500, e)
+        throw e
     }
+    // make sure to return 404 if none was found
+    if (!item) throw Boom.notFound(`${capitalize(model)} not found`)
+    ctx[model] = item
+    await next()
 }
 
 module.exports = parseParam

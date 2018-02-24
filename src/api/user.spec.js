@@ -4,22 +4,51 @@ const mongoose = require('../../lib/db/mongoose')
 
 const User = require('../model/user')
 
+let postObj = { text: 'anon' }
+
+let localUser = {}
+
+let mockUser = { text: 'test' }
+
+beforeAll(async () => {
+    const user = new User(mockUser)
+    localUser = await user.save()
+})
+
 afterAll(async () => {
     await User.remove({}).exec()
     mongoose.mongoose.connection.close()
 })
 
-test('POST', async () => {
-    const res = await request(app.callback())
-        .post('/users')
-        .send({
-            text: 'anon'
-        })
-    expect(res.status).toBe(201)
-    expect(res.body.text).toBe('anon')
+describe('/users', () => {
+    test('POST', async () => {
+        const res = await request(app.callback())
+            .post('/users')
+            .send(postObj)
+        expect(res.status).toBe(201)
+        Object.keys(postObj).map(key =>
+            expect(res.body[key]).toBe(postObj[key])
+        )
+        // snapshot
+        const withoutId = res.body
+        delete withoutId.id
+        expect(withoutId).toMatchSnapshot()
+    })
 
-    // snapshot
-    const withoutId = res.body
-    delete withoutId.id
-    expect(withoutId).toMatchSnapshot()
+    describe('/:user', () => {
+        test('GET by id', async () => {
+            const res = await request(app.callback()).get(
+                `/users/${localUser.id}`
+            )
+            expect(res.status).toBe(200)
+            Object.keys(mockUser).map(key =>
+                expect(res.body[key]).toBe(mockUser[key])
+            )
+
+            // snapshot
+            const withoutId = res.body
+            delete withoutId.id
+            expect(withoutId).toMatchSnapshot()
+        })
+    })
 })
