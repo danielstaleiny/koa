@@ -6,7 +6,7 @@ module.exports = async (ctx, next) => {
             ctx.status = err.output.statusCode || 500
             ctx.body = err.output.payload
         } else {
-            console.log(err)
+            console.error(err)
             ctx.status = 500
             ctx.body = {
                 error: 'internal server error',
