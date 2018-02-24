@@ -3,9 +3,12 @@ const server = new Koa()
 const helmet = require('koa-helmet')
 const errorHandler = require('./middleware/error-handler')
 const mongoose = require('../lib/db/mongoose')
-const router = require('./router')
 
-// use pino for production and koa logger for development
+// Routes
+const indexRouter = require('./api/index')
+const userRouter = require('./api/user')
+
+// use pino for production and koa logger for development, tests
 const logger =
     process.env.NODE_ENV === 'production'
         ? require('koa-pino-logger')
@@ -29,7 +32,10 @@ server.use(
 
 server.use(helmet())
 server.use(errorHandler)
-server.use(router.routes())
-server.use(router.allowedMethods({ throw: true }))
+// Routes
+server.use(indexRouter.routes())
+server.use(indexRouter.allowedMethods({ throw: true }))
+server.use(userRouter.routes())
+server.use(userRouter.allowedMethods({ throw: true }))
 
 module.exports = server

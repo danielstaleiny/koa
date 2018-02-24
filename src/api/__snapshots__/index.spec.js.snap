@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ping should return pong 1`] = `
+Object {
+  "msg": "pong",
+}
+`;

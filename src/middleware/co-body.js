@@ -6,6 +6,7 @@ module.exports = async (ctx, next) => {
 
     // add this file to only methods which you want to parse json to. POST,PATCH,PUT
 
+    // // otherwise uncomment this block
     // if (ctx.method === "GET" || ctx.method === "DELETE") {
     //   return next();
     // }

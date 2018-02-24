@@ -1,9 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`root route 1`] = `"anon"`;
-
-exports[`root route 2`] = `
-Object {
-  "message": "User not found",
-}
-`;
