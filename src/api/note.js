@@ -4,7 +4,8 @@ const capitalize = require('./utils/capitalize')
 const inject = require('./utils/inject-model')
 const { get, save, put, patch, remove } = require('./controller/index')
 
-// set prefix for routes
-const router = new Router({ prefix: '/notes' })
+const router = new Router()
+
+router.prefix('/notes')
 
 module.exports = router

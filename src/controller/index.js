@@ -45,7 +45,7 @@ const save = model => async ctx => {
         ctx.status = 201
         ctx.body = savedItem
     } catch (e) {
-        ctx.throw(500, e)
+        throw e
     }
 }
 // updates whole document.
@@ -53,32 +53,31 @@ const put = model => async ctx => {
     setBodyAttribute(model)(ctx)
     try {
         const putObject = await ctx[model].save()
-        ctx.status = 201
+        ctx.status = 200
         ctx.body = putObject
     } catch (e) {
-        ctx.throw(500, e)
+        throw e
     }
 }
+// doesn't return anything
 // patch value of the document
 const patch = model => async ctx => {
     try {
         ctx[model].set(ctx.request.body)
-        const patchObject = await ctx[model].save()
-        ctx.status = 201
-        ctx.body = patchObject
+        await ctx[model].save()
+        ctx.status = 204
     } catch (e) {
-        ctx.throw(500, e)
+        throw e
     }
 }
 
 // removes object
 const remove = model => async ctx => {
     try {
-        const removedObject = await ctx[model].remove()
-        ctx.status = 201
-        ctx.body = removedObject
+        await ctx[model].remove()
+        ctx.status = 204
     } catch (e) {
-        ctx.throw(500, e)
+        throw e
     }
 }
 

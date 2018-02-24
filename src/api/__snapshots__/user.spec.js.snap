@@ -6,6 +6,12 @@ Object {
 }
 `;
 
+exports[`/users /:user PUT 1`] = `
+Object {
+  "text": "put",
+}
+`;
+
 exports[`/users POST 1`] = `
 Object {
   "text": "anon",

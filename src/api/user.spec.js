@@ -50,5 +50,36 @@ describe('/users', () => {
             delete withoutId.id
             expect(withoutId).toMatchSnapshot()
         })
+
+        test('PUT', async () => {
+            const res = await request(app.callback())
+                .put(`/users/${localUser.id}`)
+                .send({ text: 'put' })
+            expect(res.status).toBe(200)
+            expect(res.body.text).toBe('put')
+
+            // snapshot
+            const withoutId = res.body
+            delete withoutId.id
+            expect(withoutId).toMatchSnapshot()
+        })
+        test('PATCH', async () => {
+            const res = await request(app.callback())
+                .patch(`/users/${localUser.id}`)
+                .send({ text: 'patch' })
+            expect(res.status).toBe(204)
+        })
+        test('DELETE', async () => {
+            const res = await request(app.callback()).del(
+                `/users/${localUser.id}`
+            )
+            expect(res.status).toBe(204)
+        })
+        test('DELETE ERROR', async () => {
+            const res = await request(app.callback()).del(
+                `/users/${localUser.id}`
+            )
+            expect(res.status).toBe(404)
+        })
     })
 })
