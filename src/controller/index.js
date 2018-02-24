@@ -45,7 +45,7 @@ const save = model => async ctx => {
         ctx.status = 201
         ctx.body = savedItem
     } catch (e) {
-        return ctx.throw(500, e)
+        ctx.throw(500, e)
     }
 }
 // updates whole document.
@@ -56,7 +56,7 @@ const put = model => async ctx => {
         ctx.status = 201
         ctx.body = putObject
     } catch (e) {
-        return ctx.throw(500, e)
+        ctx.throw(500, e)
     }
 }
 // patch value of the document
@@ -67,7 +67,7 @@ const patch = model => async ctx => {
         ctx.status = 201
         ctx.body = patchObject
     } catch (e) {
-        return ctx.throw(500, e)
+        ctx.throw(500, e)
     }
 }
 
@@ -78,7 +78,7 @@ const remove = model => async ctx => {
         ctx.status = 201
         ctx.body = removedObject
     } catch (e) {
-        return ctx.throw(500, e)
+        ctx.throw(500, e)
     }
 }
 
