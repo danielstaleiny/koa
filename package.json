@@ -7,10 +7,7 @@
     "test": "NODE_ENV=test jest",
     "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon .",
-    "snyk": "snyk test",
-    "patch": "release patch",
-    "minor": "release minor",
-    "major": "release major"
+    "snyk": "snyk test"
   },
   "repository": {
     "type": "git",
@@ -37,7 +34,6 @@
     "jest": "^21.2.1",
     "koa-logger": "^3.1.0",
     "nodemon": "^1.15.1",
-    "release": "^3.1.6",
     "snyk": "^1.69.9",
     "supertest": "^3.0.0"
   },
